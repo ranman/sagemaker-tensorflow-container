@@ -1,6 +1,7 @@
 FROM nvidia/cuda:9.0-base-ubuntu16.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+        automake \
         build-essential \
         cuda-command-line-tools-9-0 \
         cuda-cublas-dev-9-0 \
@@ -11,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         cuda-cusparse-dev-9-0 \
         curl \
         git \
+        libtool \
         libcudnn7=7.0.5.15-1+cuda9.0 \
         libcudnn7-dev=7.0.5.15-1+cuda9.0 \
         libcurl3-dev \
