@@ -38,7 +38,7 @@ RUN pip --no-cache-dir install \
 
 WORKDIR /root
 
-ENV TF_SERVING_VERSION=1.7.0
+ENV TF_SERVING_VERSION=1.8.0
 
 RUN pip install numpy boto3 six awscli flask==0.11 Jinja2==2.9 tensorflow-serving-api==$TF_SERVING_VERSION gevent gunicorn
 
