@@ -87,6 +87,16 @@ ENV TF_SERVING_VERSION=1.8.0
 # Install tensorflow-serving-api
 RUN pip install tensorflow-serving-api==$TF_SERVING_VERSION
 
+# Install nccl2, according to these instructions:
+# https://github.com/tensorflow/serving/issues/327#issuecomment-385712926
+# https://github.com/tensorflow/serving/issues/875#issuecomment-392762232
+RUN wget -q https://developer.download.nvidia.com/compute/redist/nccl/v2.1/nccl_2.1.15-1%2Bcuda9.0_x86_64.txz && \
+    tar xvf nccl_2.1.15-1+cuda9.0_x86_64.txz && \
+    mv nccl_2.1.15-1+cuda9.0_x86_64 /usr/local/nccl12 && \
+    export TF_NCCL_VERSION='2.1.15' && \
+    export NCCL_INSTALL_PATH=/usr/local/nccl2 && \
+    rm -rf nccl_2.1.15-1+cuda9.0_x86_64 nccl_2.1.15-1+cuda9.0_x86_64.txz
+
 # Download TensorFlow Serving
 RUN cd / && git clone --recurse-submodules https://github.com/tensorflow/serving && \
   cd serving && \
