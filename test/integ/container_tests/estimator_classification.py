@@ -53,7 +53,7 @@ def test_json_request():
 
     classes = prediction_result['result']['classifications'][0]['classes']
     assert len(classes) == 3
-    assert classes[0].keys() == [u'score', u'label']
+    assert list(classes[0].keys()) == ['score', 'label']
 
 
 def test_csv_request():
@@ -67,4 +67,4 @@ def test_csv_request():
 
     classes = prediction_result['result']['classifications'][0]['classes']
     assert len(classes) == 3
-    assert classes[0].keys() == [u'score', u'label']
+    assert list(classes[0].keys()) == ['score', 'label']

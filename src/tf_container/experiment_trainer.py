@@ -244,7 +244,7 @@ class Trainer(object):
 
     def _build_estimator(self, run_config, hparams):
         # hparams is of type HParams at this point but all the interface functions are assuming dict
-        hyperparameters = hparams.values()
+        hyperparameters = list(hparams.values())
 
         if hasattr(self.customer_script, 'estimator_fn'):
             logger.info("invoking estimator_fn")

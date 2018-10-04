@@ -32,4 +32,4 @@ def test_json_request():
 
     classes = prediction_result['result']['classifications'][0]['classes']
     assert len(classes) == 2
-    assert classes[0].keys() == [u'score', u'label']
+    assert list(classes[0].keys()) == ['score', 'label']

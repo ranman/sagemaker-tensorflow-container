@@ -220,7 +220,7 @@ class GRPCProxyClient(object):
         Valid formats: tensor_pb2.TensorProto, list, numpy.ndarray"""
         try:
             # TODO: tensorflow container supports prediction requests with ONLY one tensor as input
-            input_type = self.input_type_map.values()[0]
+            input_type = list(self.input_type_map.values())[0]
             ndarray = np.asarray(value)
             return make_tensor_proto(values=ndarray, dtype=input_type, shape=ndarray.shape)
         except Exception:
@@ -250,8 +250,8 @@ def _create_tf_example(feature_dict):
             return feature_pb2.Feature(int64_list=feature_pb2.Int64List(value=feature_list))
         elif feature_type == str:
             return feature_pb2.Feature(bytes_list=feature_pb2.BytesList(value=feature_list))
-        elif feature_type == unicode:
-            return feature_pb2.Feature(bytes_list=feature_pb2.BytesList(value=map(lambda x: str(x), feature_list)))
+        elif feature_type == str:
+            return feature_pb2.Feature(bytes_list=feature_pb2.BytesList(value=[str(x) for x in feature_list]))
         elif feature_type == float:
             return feature_pb2.Feature(float_list=feature_pb2.FloatList(value=feature_list))
         else:

@@ -200,7 +200,7 @@ def test_trainer_model_fn(os_environ, botocore, boto3, inspect_args, trainer, mo
     modules.estimator.Estimator.assert_called_with(
         config=modules.RunConfig(),
         model_fn=ANY,
-        params=modules.HParams().values()
+        params=list(modules.HParams().values())
     )
 
     modules.learn_runner.run.assert_called()
@@ -320,7 +320,7 @@ def test_train_estimator_fn(os_environ, botocore, boto3, inspect_args, trainer, 
     modules.Experiment.assert_called()
 
     expected_params = {'num_gpu': 20, 'min_eval_frequency': 1000, 'training_steps': 10, 'save_checkpoints_secs': 300}
-    customer_script.estimator_fn.assert_called_with(modules.RunConfig(), modules.HParams().values())
+    customer_script.estimator_fn.assert_called_with(modules.RunConfig(), list(modules.HParams().values()))
     customer_script.train_input_fn.assert_called_with(training_dir=training_dir_path, hyperparameters=expected_params)
     customer_script.eval_input_fn.assert_called_with(training_dir=training_dir_path, hyperparameters=expected_params)
     customer_script.serving_input_fn.assert_called_with(expected_params)
@@ -365,7 +365,7 @@ def test_train_input_fn_with_channels(os_environ, botocore, boto3, inspect_args,
     modules.Experiment.assert_called()
 
     expected_params = {'num_gpu': 20, 'min_eval_frequency': 1000, 'training_steps': 10, 'save_checkpoints_secs': 300}
-    customer_script.estimator_fn.assert_called_with(modules.RunConfig(), modules.HParams().values())
+    customer_script.estimator_fn.assert_called_with(modules.RunConfig(), list(modules.HParams().values()))
     customer_script.train_input_fn.assert_called_with(training_dir=training_dir_path,
                                                       hyperparameters=expected_params,
                                                       input_channels=training_input_channels)
@@ -414,7 +414,7 @@ def test_train_input_fn_with_unsupported_parameters(os_environ, botocore, boto3,
     modules.Experiment.assert_called()
 
     expected_params = {'num_gpu': 20, 'min_eval_frequency': 1000, 'training_steps': 10, 'save_checkpoints_secs': 300}
-    customer_script.estimator_fn.assert_called_with(modules.RunConfig(), modules.HParams().values())
+    customer_script.estimator_fn.assert_called_with(modules.RunConfig(), list(modules.HParams().values()))
     customer_script.train_input_fn.assert_called_with(training_dir=training_dir_path,
                                                       hyperparameters=expected_params,
                                                       input_channels=training_input_channels,

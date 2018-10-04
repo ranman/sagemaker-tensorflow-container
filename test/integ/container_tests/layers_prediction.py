@@ -22,7 +22,7 @@ from tensorflow_serving.apis import predict_pb2
 
 
 def test_pb_request():
-    data = [x for x in xrange(784)]
+    data = [x for x in range(784)]
     tensor_proto = tf.make_tensor_proto(values=np.asarray(data), shape=[1, len(data)], dtype=tf.float32)
 
     request = predict_pb2.PredictRequest()
@@ -49,7 +49,7 @@ def test_pb_request():
 
 
 def test_json_request():
-    data = [x for x in xrange(784)]
+    data = [x for x in range(784)]
     tensor_proto = tf.make_tensor_proto(values=np.asarray(data), shape=[1, len(data)], dtype=tf.float32)
 
     url = "http://localhost:8080/invocations"
@@ -63,7 +63,7 @@ def test_json_request():
 
 
 def test_json_dict_of_lists():
-    data = {'inputs': [x for x in xrange(784)]}
+    data = {'inputs': [x for x in range(784)]}
 
     url = "http://localhost:8080/invocations"
     serialized_output = requests.post(url,
